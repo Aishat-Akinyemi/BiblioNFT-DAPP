@@ -1,5 +1,6 @@
 {
-  "name": "celo-react-boilerplate",
+  "homepage": "https://${aishat-akinyemi}.github.io/${BiblioNFT-DAPP}",
+  "name": "biblionft-dapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +17,7 @@
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.7.1",
     "dotenv": "^10.0.0",
+    "gh-pages": "^3.2.3",
     "ipfs-http-client": "^56.0.3",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -31,8 +33,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run --network alfajores scripts/deploy.js",
-    "test-contract": "npx hardhat test"
+    "deploy-contract": "npx hardhat run --network alfajores scripts/deploy.js",
+    "test-contract": "npx hardhat test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+
   },
   "eslintConfig": {
     "extends": [
