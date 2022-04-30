@@ -1,5 +1,5 @@
 # Biblio NFT Collection Minter DApp
-
+![dapp cover image with books](./src/assets/img/cover.png "BiblioNFT Collection")
 
 This is a DApp for Biblio NFT Collection. 
 
