@@ -5,8 +5,14 @@ import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
 import { uploadToIpfs } from "../../../utils/minter";
 
 // basic attributes that can be added to NFT
-const BACKGROUND = ["pastel-rainbow", "purple-teal", "pink-watercolor", "pastel-blue-pink", "galaxy", "pile-of-glitters"];
-
+const BACKGROUND = [
+  "pastel-rainbow",
+  "purple-teal",
+  "pink-watercolor",
+  "pastel-blue-pink",
+  "galaxy",
+  "pile-of-glitters",
+];
 
 const AddNfts = ({ save, address }) => {
   const [name, setName] = useState("");
@@ -18,10 +24,9 @@ const AddNfts = ({ save, address }) => {
   const [attributes, setAttributes] = useState([]);
   const [show, setShow] = useState(false);
 
-
   // check if all form data has been filled
   const isFormFilled = () =>
-      name && ipfsImage && ipfsContent && description && attributes.length === 1;
+    name && ipfsImage && ipfsContent && description && attributes.length === 1;
 
   // close the popup modal
   const handleClose = () => {
@@ -34,7 +39,7 @@ const AddNfts = ({ save, address }) => {
 
   // add an attribute to an NFT
   const setAttributesFunc = (e, trait_type) => {
-    const {value} = e.target;
+    const { value } = e.target;
     const attributeObject = {
       trait_type,
       value,
@@ -45,7 +50,6 @@ const AddNfts = ({ save, address }) => {
     const index = arr.findIndex((el) => el.trait_type === trait_type);
 
     if (index >= 0) {
-
       // update the existing attribute
       arr[index] = {
         trait_type,
@@ -107,45 +111,39 @@ const AddNfts = ({ save, address }) => {
               />
             </FloatingLabel>
 
-            <FloatingLabel
-              controlId="inputImage"
-              label="Image"
-              className="mb-3"
-            >
-            <Form.Control
-              type="file"
-              className={"mb-3"}
-              onChange={async (e) => {
-                const imageUrl = await uploadToIpfs(e);
-                if (!imageUrl) {
-                  alert("failed to upload image");
-                  return;
-                }
-                setIpfsImage(imageUrl);
-              }}
-              placeholder="Product name"
-            ></Form.Control>
-            </FloatingLabel>
+            <Form.Group className="mb-3" controlId="inputImage">
+              <Form.Label>Image</Form.Label>
 
-            <FloatingLabel
-              controlId="inputContent"
-              label="Content"
-              className="mb-3"
-            >  
-            <Form.Control
-              type="file"
-              className={"mb-3"}
-              onChange={async (e) => {
-                const contentUrl = await uploadToIpfs(e);
-                if (!contentUrl) {
-                  alert("failed to upload content");
-                  return;
-                }
-                setIpfsContent(contentUrl);
-              }}
-              placeholder=""
-            ></Form.Control>
-            </FloatingLabel>
+              <Form.Control
+                type="file"
+                className={"mb-3"}
+                onChange={async (e) => {
+                  const imageUrl = await uploadToIpfs(e);
+                  if (!imageUrl) {
+                    alert("failed to upload image");
+                    return;
+                  }
+                  setIpfsImage(imageUrl);
+                }}
+                placeholder="Product name"
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="inputContent">
+              <Form.Label>Content</Form.Label>
+              <Form.Control
+                type="file"
+                className={"mb-3"}
+                onChange={async (e) => {
+                  const contentUrl = await uploadToIpfs(e);
+                  if (!contentUrl) {
+                    alert("failed to upload content");
+                    return;
+                  }
+                  setIpfsContent(contentUrl);
+                }}
+              ></Form.Control>
+            </Form.Group>
 
             <Form.Label>
               <h5>Properties</h5>
@@ -168,44 +166,6 @@ const AddNfts = ({ save, address }) => {
                 </option>
               ))}
             </Form.Control>
-
-            {/* <Form.Control
-              as="select"
-              className={"mb-3"}
-              onChange={async (e) => {
-                setAttributesFunc(e, "color");
-              }}
-              placeholder="NFT Color"
-            >
-              <option hidden>Color</option>
-              {COLORS.map((color) => (
-                <option
-                  key={`color-${color.toLowerCase()}`}
-                  value={color.toLowerCase()}
-                >
-                  {color}
-                </option>
-              ))}
-            </Form.Control> */}
-
-            {/* <Form.Control
-              as="select"
-              className={"mb-3"}
-              onChange={async (e) => {
-                setAttributesFunc(e, "shape");
-              }}
-              placeholder="NFT Shape"
-            >
-              <option hidden>Shape</option>
-              {SHAPES.map((shape) => (
-                <option
-                  key={`shape-${shape.toLowerCase()}`}
-                  value={shape.toLowerCase()}
-                >
-                  {shape}
-                </option>
-              ))}
-            </Form.Control> */}
           </Form>
         </Modal.Body>
 
@@ -237,7 +197,6 @@ const AddNfts = ({ save, address }) => {
 };
 
 AddNfts.propTypes = {
-
   // props passed into this component
   save: PropTypes.func.isRequired,
   address: PropTypes.string.isRequired,
