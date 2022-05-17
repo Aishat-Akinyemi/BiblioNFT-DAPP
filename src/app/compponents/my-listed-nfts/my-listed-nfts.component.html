@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row"  *ngIf="nfts.length >0; else emptyList">
+    <div *ngFor="let nft of nfts" class="col-4 ml-3 mb-3">
+      <div class="card">
+<!-- <div class="container">
+    <div *ngIf="nfts.length >0; else emptyList" >
+      <div *ngFor="let nft of nfts" class="col-4 ml-3 mb-3">
+        <div class="card"> -->
+            <div class="card-header" style="height: 80px;">
+              <h3>{{nft.name}}</h3>
+              <p>{{nft.owner | slice:0:20}} <span class="m-5"></span><span class="badge bg-secondary">{{nft.tokenId}} ID</span></p>
+            </div>        
+              <img [src]="nft.image" [alt]="nft.description" class="card-image" />        
+            <div class="card-body" style="height: 150px;">          
+              <h5 class="card-text">{{nft.description}}</h5>
+              <p class="card-text">{{nft.price}} cUSD</p>
+              <div class="">
+                <a [href]="nft.content" class="btn btn-secondary" target="_blank">View Content</a>
+                
+              </div>
+            </div>
+        </div>      
+  
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  <div class="spinner" *ngIf="isLoading" ><mat-spinner></mat-spinner></div>
+
+
+  <ng-template #emptyList>
+    <div class="container">
+        <div class="spinner">
+            <p>No NFTs to Display Yet. Mint NFT.</p>
+        </div>
+    </div>
+  </ng-template>
+  
+  

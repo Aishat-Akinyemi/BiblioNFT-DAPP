@@ -1,0 +1,29 @@
+.nav-spacer{
+    flex: 1 1 auto;
+}
+
+.logo-text{
+    margin-left: 1em;
+}
+
+.basic-container {
+    height: 100%;
+}
+
+.mat-tab-link {
+    color: rgb(234, 141, 29); 
+    text-decoration-style: none;   
+}
+
+.mat-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.spinner{    
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin:0px auto;
+}

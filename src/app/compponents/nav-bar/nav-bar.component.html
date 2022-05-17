@@ -1,0 +1,94 @@
+<mat-toolbar>
+<div class="logo">
+    <img class="ml-0"
+    width="40"
+    alt="BiblioNFT Marketplace Logo"
+   src="../../../assets/cover.png">
+   <span class="logo-text">BiblioNFT</span> 
+</div>
+   <div class="nav-spacer"></div>
+  
+    <nav mat-tab-nav-bar>   
+        <a mat-tab-link routerLink="/home">Home</a> 
+        <a mat-tab-link routerLink="/my-nfts">My NFTs</a>
+        <a mat-tab-link routerLink="/my-listed-nfts">My Listed NFTs</a> 
+        <div>
+          <button mat-mini-fab color="accent" matTooltip="Mint NFT" aria-label="Mint NFT" (click)="open(mymodal)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>        
+</nav> 
+</mat-toolbar>
+
+     
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Mint and List NFT</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true"><mat-icon>close</mat-icon></span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="nftMintingForm"  class="row g-3">
+
+          <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+            <input type="text"  class="form-control" id="name" formControlName="name" required>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="price" class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-10">
+            <input type="number"  class="form-control" id="price" formControlName="price" min="1" required>
+            </div>
+          </div>
+         
+          <div class="mb-3 row">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" id="description" formControlName="description" rows="3" required></textarea>
+            </div>
+          </div>
+
+
+         
+          <div class="mb-3 row">
+            <label for="image" class="col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="file" id="image" formControlName="image" (change)="uploadImage($event.target)"  accept="image/png, image/gif, image/jpeg" required>
+            </div>           
+            <div class="upload__format" *ngIf="!nftMintingForm.get('imageUrl')?.value">
+              PNG, GIF, WEBP Format. Max 1Gb.
+            </div>
+            <img *ngIf="nftMintingForm.get('imageUrl')?.value" [src]="nftMintingForm.get('imageUrl')?.value" alt="uploaded image" class="upload__image" />
+          
+          </div>
+
+          <div class="mb-3 row">
+            <label for="content" class="col-sm-2 col-form-label">Content</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="file" id ="content" placeholder="Content" (change)="uploadContent($event.target)" formControlName="content" required  accept="application/JSON">
+            </div>    
+            <div class="upload__format" *ngIf="!nftMintingForm.get('contentUrl')?.value">
+              JSON format.
+            </div>        
+          </div>
+
+          <div class="mb-3 row">
+            <label  for="property" class="col-sm-2 col-form-label">Property</label>
+            <div class="col-sm-10">
+            <input type="text"  class="form-control" id="property" formControlName="properties" required>
+            </div>
+          </div>        
+           
+         </form>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" [disabled]="!nftMintingForm.valid" (click)="uploadMetadata()">Mint NFT</button>
+  </div>
+</ng-template>
+
+<div class="spinner" *ngIf="isLoading" ><mat-spinner></mat-spinner></div>
+   

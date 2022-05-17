@@ -1,0 +1,14 @@
+.cont {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  }
+  
+
+  
+.spinner{    
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin:0px auto;
+}

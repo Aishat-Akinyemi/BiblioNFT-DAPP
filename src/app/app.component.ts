@@ -1,3 +1,5 @@
+import { BigNumber } from "bignumber.js";
+import { BnftService } from './services/bnft.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'BiblioNFT-DAPP';
+  title = 'BiblioNFT-DAPP'; 
+
 }

@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>Mint and List Biblio NFT</h1>
+<div mat-dialog-content>
+   <form [formGroup]="nftMintingForm">
+    <div>
+        <mat-form-field class="full-width" floatLabel="always" appearance="fill">
+            <mat-label>Name</mat-label> 
+            <input matInput placeholder="What's the NFT's name" formControlName="name" required>
+        </mat-form-field> 
+    </div> 
+    <div>
+        <mat-form-field class="full-width" floatLabel="always" appearance="fill">
+            <mat-label>Description</mat-label> 
+            <input matInput placeholder="Description" formControlName="description" required> 
+        </mat-form-field> 
+    </div> 
+    <div>
+        <mat-form-field class="full-width" floatLabel="always" appearance="fill">
+            <mat-label>Image</mat-label> 
+            <input  type="image"  placeholder="Choose Image" formControlName="image" required>   
+                             
+        </mat-form-field> 
+    </div> 
+    <div (click)="uploadFile.click()">
+        <button mat-raised-button color="primary">Choose File</button>
+        <input  #uploadFile (change)="upload($event)" type='file' style="display:none"/> 
+     </div>
+
+    <div>
+        <mat-form-field class="full-width" floatLabel="always" appearance="fill">
+            <mat-label>Content</mat-label> 
+            <input type="file" placeholder="Content" formControlName="content" required>
+         </mat-form-field> 
+    </div> 
+    <div>
+        <mat-form-field class="full-width" floatLabel="always" appearance="fill">
+            <mat-label>Properties</mat-label> 
+            <input matInput placeholder="Properties" formControlName="properties" required maxlength="20">
+        </mat-form-field> 
+    </div> 
+    <mat-form-field appearance="fill">
+        <mat-label>Input</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Outline form field</mat-label>
+          <input matInput placeholder="Placeholder">
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Hint</mat-hint>
+        </mat-form-field>
+      </p>
+   </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="mintNFT()" cdkFocusInitial>Mint NFT</button>
+  
+</div>
+
+
+

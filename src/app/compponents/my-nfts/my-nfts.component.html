@@ -1,0 +1,60 @@
+<div class="container">
+  <div *ngIf="nfts.length >0; else emptyList" >
+    <div *ngFor="let nft of nfts" class="col-4 ml-3 mb-3">
+      <div class="card">
+            <div class="card-header" style="height: 80px;">
+              <h3>{{nft.name}}</h3>
+              <p>{{nft.owner | slice:0:20}} <span class="m-5"></span><span class="badge bg-secondary">{{nft.tokenId}} ID</span></p>
+            </div>        
+              <img [src]="nft.image" [alt]="nft.description" class="card-image" />        
+            <div class="card-body" style="height: 150px;">          
+              <h5 class="card-text">{{nft.description}}</h5>
+              <p class="card-text">{{nft.price}} cUSD</p>
+              <div class="">
+                <a [href]="nft.content" class="btn btn-secondary" target="_blank">View Content</a>
+                <span class="m-5"></span>
+                <a  class="btn btn-primary" (click)="open(content); setTokenId(nft.tokenId); $event.stopPropagation();
+                ">Relist</a>
+              </div>
+            </div>
+        </div>
+        
+  
+      </div>
+  </div>
+    </div>
+
+  <div class="spinner" *ngIf="isLoading" ><mat-spinner></mat-spinner></div>
+
+
+       
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Relist NFT</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="price">PRICE</label>
+          <div class="input-group">
+            <input id="price" class="form-control" placeholder="1cUSD" name="price" [(ngModel)]="price">            
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="relistNFT()">Relist</button>
+    </div>
+  </ng-template>
+
+  <ng-template #emptyList>
+    <div class="container">
+        <div class="spinner">
+            <p>No NFTs to Display Yet. Buy NFT.</p>
+        </div>
+    </div>
+  </ng-template>
+  
+  
+  
