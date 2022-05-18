@@ -40,8 +40,8 @@ contract BiblioMarketPlace is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
 
     /* Mints a token then list it in the marketplace */
     function mintAndListBiblioToken(string memory uri, uint256 price) public payable returns (uint256) {
-        uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter.current();        
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
         list(tokenId, price);
