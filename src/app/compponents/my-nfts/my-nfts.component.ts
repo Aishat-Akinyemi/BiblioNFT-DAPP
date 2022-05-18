@@ -13,7 +13,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class MyNftsComponent implements OnInit {
   selectedToken!:string;
   public nfts: any[] = [];
-  isLoading= false;
+  isLoading!:boolean;
   price!: number;
 
   constructor(private bnftService: BnftService, private http: HttpClient, 
@@ -21,10 +21,10 @@ export class MyNftsComponent implements OnInit {
 
   public  ngOnInit() { 
     (async () => {
+      try{
       this.isLoading = true;
       const _nfts = await this.bnftService.getMyPurchasedNfts();
       this.nfts = await Promise.all(_nfts.map(async (nft) => {
-        console.log(nft.price);
         const tokenUrl = await this.bnftService.getTokenUrl(nft.tokenId);
         const metadata: any = await this.http.get(tokenUrl).toPromise();
         this.isLoading = false;
@@ -40,8 +40,12 @@ export class MyNftsComponent implements OnInit {
           properties: metadata.properties,
           tokenId: nft.tokenId        
         }
-      }));      
-      console.log(this.nfts);
+      }));
+      this.isLoading = false;  
+    }catch{
+      this.isLoading = false;
+    }   
+     
     })();
 
     
@@ -60,13 +64,13 @@ export class MyNftsComponent implements OnInit {
     this.bnftService.relist(this.selectedToken, this.price.toString()).then(
     async (result) => {
       this.isLoading = false;
-      await this.router.navigate([ '/my-listed-nfts' ]);
+      await this.router.navigate(['/my-listed-nfts']);
      }
      //if or else success
 
    ).catch(error => {
     this.isLoading =false;
-    //show error;
+    
    });
 
   

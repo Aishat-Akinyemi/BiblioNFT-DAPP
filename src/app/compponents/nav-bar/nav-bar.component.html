@@ -1,24 +1,29 @@
-<mat-toolbar>
-<div class="logo">
-    <img class="ml-0"
-    width="40"
-    alt="BiblioNFT Marketplace Logo"
-   src="../../../assets/cover.png">
-   <span class="logo-text">BiblioNFT</span> 
-</div>
-   <div class="nav-spacer"></div>
-  
-    <nav mat-tab-nav-bar>   
-        <a mat-tab-link routerLink="/home">Home</a> 
-        <a mat-tab-link routerLink="/my-nfts">My NFTs</a>
-        <a mat-tab-link routerLink="/my-listed-nfts">My Listed NFTs</a> 
-        <div>
-          <button mat-mini-fab color="accent" matTooltip="Mint NFT" aria-label="Mint NFT" (click)="open(mymodal)">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>        
-</nav> 
-</mat-toolbar>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home">
+      <img src="../../../assets/cover.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      BiblioNFT
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+        <a class="nav-link active" routerLink="/home">Home</a> 
+        <a class="nav-link"  routerLink="/my-nfts">My NFTs</a>
+        <a class="nav-link"  routerLink="/my-listed-nfts">My Listed NFTs</a> 
+        <div class="nav-spacer"></div>
+        <a mat-mini-fab color="accent" matTooltip="Mint NFT" aria-label="Mint NFT" (click)="open(mymodal)">
+          <mat-icon>add</mat-icon>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</nav>
 
      
 <ng-template #mymodal let-modal>
@@ -86,7 +91,7 @@
          </form>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" [disabled]="!nftMintingForm.valid" (click)="uploadMetadata()">Mint NFT</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]="!nftMintingForm.valid" (click)="uploadMetadata(); modal.dismiss(); this.isLoading==true;">Mint NFT</button>
   </div>
 </ng-template>
 

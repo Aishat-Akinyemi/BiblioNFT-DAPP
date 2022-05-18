@@ -67,8 +67,7 @@ export class NavBarComponent implements OnInit {
       this.nftMintingForm.get('contentUrl')?.setValue(fileUrl);      
    }
    public async uploadMetadata(){
-     if(this.nftMintingForm.valid){
-       this.isLoading = true;
+     if(this.nftMintingForm.valid){       
        const name = this.nftMintingForm.get('name')?.value
        const image = this.nftMintingForm.get('imageUrl')?.value
        const content = this.nftMintingForm.get('contentUrl')?.value
@@ -81,13 +80,19 @@ export class NavBarComponent implements OnInit {
         content,
         properties
       }));
-      const isAdded = await this.bnftService.mintAndListNFT(metaDataUrl, this.nftMintingForm.get('price')?.value.toString())
-      this.isLoading = false
-      if (isAdded) {
-        await this.router.navigate([ '/my-listed-nfts' ]);
-      }
-    } else {
-      console.error('form is not valid');
+      this.isLoading = true;
+      const isAdded = await this.bnftService.mintAndListNFT(metaDataUrl, this.nftMintingForm.get('price')?.value.toString()).then(
+        (result) =>{
+          this.isLoading = false;
+          if (result) {
+            this.router.navigate([ '/my-listed-nfts' ]);
+          }        
+
+        }).catch((e)=> {
+          this.isLoading = false;
+        }) 
+       } else {
+      console.error('error minting NFT');
     }
   }
 }

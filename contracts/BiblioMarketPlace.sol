@@ -127,14 +127,15 @@ contract BiblioMarketPlace is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
       
     /* Returns all unsold market items */
     function fetchMarketItems() public view returns (BiblioNFTItem[] memory) {
-      uint itemCount = _tokenIdCounter.current() - 1;
+      uint itemCount = _tokenIdCounter.current();
       uint unsoldItemCount = _tokenIdCounter.current() - _itemsSoldCount.current();
       uint currentIndex = 0;
 
       BiblioNFTItem[] memory items = new BiblioNFTItem[](unsoldItemCount);
-      for (uint i = 0; i < unsoldItemCount; i++) {
-        if (listings[i].owner == address(this)) {
-          BiblioNFTItem storage currentItem = listings[i];
+      for (uint i = 0; i < itemCount; i++) {
+        if (listings[i+1].owner == address(this)) {
+          uint currentId = i + 1;
+          BiblioNFTItem storage currentItem = listings[currentId];
           items[currentIndex] = currentItem;
           currentIndex ++;
         }
@@ -151,16 +152,17 @@ contract BiblioMarketPlace is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
       uint currentIndex = 0;
 
       for (uint i = 0; i < totalItemCount; i++) {
-        if (listings[i].owner == msg.sender) {
+        if (listings[i + 1].owner == msg.sender) {
           itemCount += 1;
         }
       }
 
       BiblioNFTItem[] memory myitems = new BiblioNFTItem[](itemCount);
       for (uint i = 0; i < totalItemCount; i++) {
-        if (listings[i].owner == msg.sender) {
-          BiblioNFTItem storage currentItem = listings[i];
-          myitems[i] = currentItem;
+        if (listings[i + 1].owner == msg.sender) {
+          uint currentId = i + 1;
+          BiblioNFTItem storage currentItem = listings[currentId];
+          myitems[currentIndex] = currentItem;
           currentIndex ++;
         }
       }
@@ -174,16 +176,17 @@ contract BiblioMarketPlace is ERC721, ERC721Enumerable, ERC721URIStorage, Ownabl
       uint currentIndex = 0;
 
       for (uint i = 0; i < totalItemCount; i++) {
-        if (listings[i].seller == msg.sender) {
+        if (listings[i + 1].seller == msg.sender) {
           itemCount += 1;
         }
       }
 
       BiblioNFTItem[] memory items = new BiblioNFTItem[](itemCount);
       for (uint i = 0; i < totalItemCount; i++) {
-        if (listings[i].seller == msg.sender) {
-          BiblioNFTItem storage currentItem = listings[i];
-          items[i] = currentItem;
+        if (listings[i+1].seller == msg.sender) {
+           uint currentId = i + 1;
+          BiblioNFTItem storage currentItem = listings[currentId];
+          items[currentId] = currentItem;
           currentIndex ++;
         }
       }

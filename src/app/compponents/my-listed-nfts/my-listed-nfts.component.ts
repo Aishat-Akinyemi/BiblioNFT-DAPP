@@ -16,7 +16,8 @@ export class MyListedNftsComponent implements OnInit {
   constructor(private bnftService: BnftService, private http: HttpClient, private router: Router ) { }
 
   public async ngOnInit(): Promise<void> { 
-    this.isLoading = true;
+    try{
+      this.isLoading = true;
     const _nfts = await this.bnftService.getMyListedNfts();
     this.nfts = await Promise.all(_nfts.map(async (nft) => {
       const tokenUrl = await this.bnftService.getTokenUrl(nft.tokenId);
@@ -36,5 +37,8 @@ export class MyListedNftsComponent implements OnInit {
       }
     }));
       this.isLoading = false;
-  }
+  
+    }catch{
+      this.isLoading = false;
+    }}
 }

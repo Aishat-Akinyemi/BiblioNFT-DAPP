@@ -10,11 +10,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   public nfts: any[] = [];
   isLoading= false;
   constructor(private bnftService: BnftService,  private http: HttpClient, private router: Router ) { }
 
   public async ngOnInit(): Promise<void> { 
+    try{
     this.isLoading = true;
     const _nfts = await this.bnftService.getAllMarketItems();
     this.nfts = await Promise.all(_nfts.map(async (nft) => {
@@ -33,7 +35,13 @@ export class HomeComponent implements OnInit {
         properties: metadata.properties,
         tokenId: nft.tokenId        
       }
-    }));
+      
+    })
+    );
+    this.isLoading = false;
+    }catch{
+      this.isLoading = false;
+    }
       
   }
 
